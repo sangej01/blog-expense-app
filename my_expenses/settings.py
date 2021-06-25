@@ -1,4 +1,8 @@
 import os
+import cx_Oracle
+
+cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_19_11")
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -63,12 +67,24 @@ WSGI_APPLICATION = 'my_expenses.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if False:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.oracle',
+            'NAME': 'raddev',
+            'USER': 'dj_expenses',
+            'PASSWORD': 'expensesdj',
+            'HOST': 'oralcdcddb01.nyumc.org',
+            'PORT': '1521',
+        },
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
